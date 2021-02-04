@@ -1,0 +1,38 @@
+@keyframes moveInLeft{
+    0%{ /* when the animation start */ 
+        opacity: 0;
+        transform: translateX(-10rem);/* transform in the x direction/axis - value means(left) , -100px / 10 = -10rem */
+    }
+    80%{ /* when animation is at 80% */
+        transform: translateX(1rem); /* positive value move to right */
+
+    }
+    100%{ /*  when tha animation finish */
+        opacity: 1;
+        transform: translate(0); /* means no change */
+    }
+}
+@keyframes moveInRight{
+    0%{ /* when the animation start */ 
+        opacity: 0;
+        transform: translateX(10rem); /* transform in the x direction/axis + value means(right) */
+    }
+    80%{ /* when animation is at 80% */
+        transform: translateX(-1rem); /* negative value move to left */
+
+    }
+    100%{ /*  when tha animation finish */
+        opacity: 1;
+        transform: translate(0); /* means no change, move to orignal position */
+    }
+}
+@keyframes moveInBottom{
+    0%{ /* when the animation start */ 
+        opacity: 0;
+        transform: translateY(3rem); /* transform in the y direction/axis + value means(bottom) */
+    }
+    100%{ /*  when tha animation finish */
+        opacity: 1;
+        transform: translateY(0); /* means no change, move to orignal position */
+    }
+}

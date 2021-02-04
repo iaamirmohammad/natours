@@ -1,0 +1,120 @@
+.popup{
+    height: 100vh;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba($color-black, .8);
+    z-index: 3000;
+    // display: none; //hide the popup.
+    opacity: 0;
+    visibility: hidden;
+    transition: all .3s;
+    //(this is a feature query) ask browser if it supports a certain property.
+    @supports(-webkit-backdrop-filter: blur(10px)) or (backdrop-filter: blur(10px)){
+        -webkit-backdrop-filter: blur(10px);  //to work in safari.
+        // -webkit-backdrop-filter: brightness(200%); 
+        // -webkit-backdrop-filter: invert(); 
+        backdrop-filter: blur(10px);  //this don't work in chrome.
+        // backdrop-filter: brightness(200%); 
+        // backdrop-filter: invert(); 
+        background-color: rgba($color-black, .3);
+    }
+
+    &__content{
+        @include absCenter;
+
+        width: 75%;
+        background-color: $color-white;
+        box-shadow: 0 2rem 4rem rgba($color-black, .2);
+        border-radius: 3px;
+        display: table;
+        overflow: hidden; //img overflowing the box
+
+        //originally  content is scale down and invisible.
+        opacity: 0;
+        //when we have 2 transform the new one override the old one, so again write the mixin transform
+        transition: transform(-50%, -50%) scale(.25);  
+        transition: all .5s .2s; //.2s is delay
+
+        @include respond(tab-port){
+            width: 100%;
+            height: auto;
+            display: inline;
+        }
+    }
+    &__left{
+        width: 33.333333%; //we need a 1/3rd wide left
+        //float: left; //float make the height of right side as half of left so use display: table-cell
+        display: table-cell;
+
+        @include respond(tab-port){
+            width: 100%;
+            display: block;
+        }
+    }
+    &__right{
+        width: 66.666666%; //they both make 100%
+        // float: left;
+        display: table-cell;
+        vertical-align: middle;// bcz right side is below so use.
+        padding:3rem 5rem;
+
+        @include respond(tab-port){
+            width: 100%;
+            display: block;
+        }
+    }
+    &__img{
+        display: block;
+        width: 100%; //width of parent container.
+        @include respond(tab-port){
+            display: none;
+        }
+    }
+    &__text{
+        font-size: 1.4rem;
+        margin-bottom: 4rem;
+        //prefexes to make the below work
+        -mox-column-count: 2;//split the paragraph into columns.
+        -mox-column-gap: 4rem;  //default : 1em; 1em=14px; bcz em is font size of current element.
+        -mox-column-rule: 1px solid $color-grey-light-2; //border in between the middle of 2 columns.
+
+        column-count: 2;//split the paragraph into columns.
+        column-gap: 4rem;  //default : 1em; 1em=14px; bcz em is font size of current element.
+        column-rule: 1px solid $color-grey-light-2; //border in between the middle of 2 columns.
+        
+        -mox-hyphens: auto; //prefexes to make the hyphens work
+        -ms-hyphens: auto;
+        -webkit-hyphens: auto;
+        hyphens: auto; //having 3 possibilities none(default), manual, auto.
+    }
+
+    //when click on book now btn, when popup is open
+    &:target { //as that element becomes target.
+        opacity: 1;
+        visibility: visible;
+    }
+    &:target &__content { //when popup becomes the target
+        opacity: 1;
+        transform: translate(-50%,-50%) scale(1);
+    }
+    // close btn will remove the target from popup, then it loses the above style and back to orignal state.
+    &__close {
+        &:link,
+        &:visited {
+            color: $color-gray-dark;
+            position: absolute;
+            top: 2.5rem;
+            right: 2.5rem;
+            font-size: 3rem;
+            text-decoration: none;
+            display: inline-block;
+            transition: all .2s;
+            line-height: 1;
+        }
+        &:hover{
+            color: $color-primary;
+        }
+    }
+}

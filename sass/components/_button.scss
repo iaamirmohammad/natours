@@ -1,0 +1,93 @@
+.btn{
+    &, //.btn
+    &:link,
+    &:visited{
+        text-transform: uppercase;
+        text-decoration: none;
+        padding: 1.5rem 4rem; /* top/bottom=15px, left/right=40px */
+        display: inline-block;
+        border-radius: 10rem;
+        transition: all .2s;
+        position: relative;
+        font-size: $default-font-size;
+
+        //change the button elemenet.
+        border: none; //remove the default border of btn.
+        cursor: pointer;
+    }
+
+    &:hover { /* .btn:hover */
+        transform: translateY(-3px); /* move up according to orignal state. */
+        box-shadow: 0 2rem 2rem rgba($color-black,.2); /* 0 20px 20px rgba(0,0,0,0.2); */
+
+        &::after{ /* .btn:hover::after */
+            transform: scaleX(1.4) scaleY(1.6); /*scale increase the element*/
+            opacity: 0; /*elem fades-out*/
+        }
+    }
+    &:active, &:focus{ //focus of btn is same as active
+        outline: none;
+        transform: translateY(-1px);
+        box-shadow: 0 1rem 1rem rgba($color-black,.2);  /* 0 10px 10px rgba(0,0,0,0.2); */
+    }
+    &--white{  /* .btn--white */
+        background-color: $color-white;
+        color: $color-gray-dark;
+
+        &::after{  /* .btn--white::after */
+            background-color: $color-white;
+        }
+    }
+    &--green{
+        background-color: $color-primary;
+        color: $color-white;
+
+        &::after{  /* .btn--white::after */
+            background-color: $color-primary;
+        }
+    }
+
+    &::after{
+        content: ""; /*Content is mandatory in pseudo elem*/
+        display: inline-block;
+        height: 100%; /*100% of orignal button*/
+        width: 100%;
+        border-radius: 10rem;
+        position: absolute; /*absolute position needs a referance to parent*/
+        top: 0;
+        left: 0;
+        z-index: -1; /*behaind the button*/
+        transition: all .4s;
+    }
+    &--white::after{
+        background-color: #fff;
+    }
+    &--animated{
+        animation: moveInBottom .5s ease-out .75s; /*75s delay*/
+        animation-fill-mode: backwards; /*apply the style at 0% before the animation starts.*/
+    }
+}
+
+.btn-text{
+    &:link,
+    &:visited{
+        font-size: $default-font-size;
+        color: $color-primary;
+        display: inline-block;
+        text-decoration: none;
+        border-bottom: 1px solid $color-primary;
+        padding:3px; //small units don;t need to write in rem's etc.
+        transition: all .2s; //to animate all the below.
+    }
+    &:hover{
+        background-color: $color-primary;
+        color: $color-white;
+        box-shadow: 0 1.5rem 2rem rgba($color-black, .15);
+        transform: translateY(-2px); //in y dir move 2px up.
+    }
+    &:active{
+        box-shadow: 0 .5rem 1rem rgba($color-black, .15);
+        transform: translateY(0); //back to orignal.
+    }
+    
+}

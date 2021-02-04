@@ -1,0 +1,49 @@
+.header{
+    height: 85vh; /*viewport height */
+    background-image: linear-gradient(to right bottom, 
+        rgba($color-primary-light,0.8), 
+        rgba($color-primary-dark,0.8)),
+        url(../img/hero-small.jpg);
+    background-size: cover; /*set the elem in the parent box viewport */ 
+    background-position: center;  /* top of img is never crop. */
+
+    @supports(clip-path: polygon(0 0)) or (-webkit-clip-path: polygon(0 0)) {
+        /* make shape of img with own dimensions */
+        -webkit-clip-path: polygon(0 0,100% 0,100% 75vh,0 100%);
+        clip-path: polygon(0 0,100% 0,100% 75vh,0 100%);
+        height: 95vh; /*viewport height */
+    }
+
+    //media queries for responsive images.
+    // resolution > 192dpi(2x screen) and width > 600px , media queries must be in em's
+    @media only screen and (min-resolution: 192dpi) and (min-width: 37.5em), //dpi(dots per inch) (comma means OR) 600px/16=37.5
+    only screen and(-webkit-min-device-pixel-ratio: 2) and (min-width: 37.5em),  //to work in safari
+    only screen and (min-width: 125em) {   // 2000/16=125em
+        background-image: linear-gradient(to right bottom, 
+        rgba($color-primary-light,0.8), 
+        rgba($color-primary-dark,0.8)),
+        url(../img/hero.jpg);
+    }
+
+    @include respond(phone){
+        -webkit-clip-path: polygon(0 0,100% 0,100% 85vh,0 100%);
+        clip-path: polygon(0 0,100% 0,100% 85vh,0 100%);
+    }
+    &__logo-box{  /*this is nesting, eqiivalent to .header__logo-box */
+        position: absolute; /* this sets the top and left according to parent elem. */
+        top: 4rem; /* 40px / 10 = 4rem */
+        left: 4rem;
+    }
+
+    &__logo{    /* specify size of img */
+        height:3.5rem; /*width is auto set by browswr */
+    }
+
+    &__text-box{
+        position: absolute; /* this 40 and 50 are in rel witrh parent */ 
+        top: 40%;
+        left: 50%;
+        transform: translate(-50%, -50%); /* -50% on x, -50% on y, this is not in relation in parent */ 
+        text-align: center;
+    }
+}
